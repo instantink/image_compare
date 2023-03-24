@@ -17,7 +17,7 @@ We're (kinda) using semantic versioning:
 
 How to bump a version:
 
-- Change the version number in `lib/image_matcher/version.rb` file.
+- Change the version number in `lib/image_compare/version.rb` file.
 - Update the changelog (add new heading with the version name and date).
 - Update the installation documentation if necessary (e.g., during minor and major updates).
 

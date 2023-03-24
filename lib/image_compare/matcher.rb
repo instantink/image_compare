@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module ImageMatcher
+module ImageCompare
   class Matcher
-    require 'image_matcher/image'
-    require 'image_matcher/result'
-    require 'image_matcher/modes'
+    require 'image_compare/image'
+    require 'image_compare/result'
+    require 'image_compare/modes'
 
     MODES = {
       rgb: 'RGB',

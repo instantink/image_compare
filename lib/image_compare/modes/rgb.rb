@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module ImageMatcher
+module ImageCompare
   module Modes
-    require 'image_matcher/modes/base'
+    require 'image_compare/modes/base'
 
     class RGB < Base
       def pixels_equal?(a, b)

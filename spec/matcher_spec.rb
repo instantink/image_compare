@@ -2,15 +2,15 @@
 
 require 'spec_helper'
 
-describe ImageMatcher::Matcher do
+describe ImageCompare::Matcher do
   describe 'new' do
-    subject { ImageMatcher::Matcher.new(**options) }
+    subject { ImageCompare::Matcher.new(**options) }
 
     context 'without options' do
       let(:options) { {} }
 
       it { expect(subject.mode.threshold).to eq 0 }
-      it { expect(subject.mode).to be_a ImageMatcher::Modes::RGB }
+      it { expect(subject.mode).to be_a ImageCompare::Modes::RGB }
     end
 
     context 'with custom thresholds' do
@@ -29,7 +29,7 @@ describe ImageMatcher::Matcher do
     context 'with custom mode' do
       let(:options) { {mode: :delta} }
 
-      it { expect(subject.mode).to be_a ImageMatcher::Modes::Delta }
+      it { expect(subject.mode).to be_a ImageCompare::Modes::Delta }
     end
 
     context 'with undefined mode' do
@@ -43,13 +43,13 @@ describe ImageMatcher::Matcher do
     let(:path_1) { image_path 'very_small' }
     let(:path_2) { image_path 'very_small' }
     let(:options) { {} }
-    subject { ImageMatcher.compare(path_1, path_2, **options) }
+    subject { ImageCompare.compare(path_1, path_2, **options) }
 
-    it { expect(subject).to be_a ImageMatcher::Result }
+    it { expect(subject).to be_a ImageCompare::Result }
 
     context 'when sizes mismatch' do
       let(:path_2) { image_path 'small' }
-      it { expect { subject }.to raise_error ImageMatcher::SizesMismatchError }
+      it { expect { subject }.to raise_error ImageCompare::SizesMismatchError }
     end
 
     context 'with negative exclude rect bounds' do

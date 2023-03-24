@@ -3,14 +3,14 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'benchmark/ips'
-require 'image_matcher'
+require 'image_compare'
 
-a = ImageMatcher::Image.from_file(File.expand_path('../../spec/fixtures/a.png', __FILE__))
-b = ImageMatcher::Image.from_file(File.expand_path('../../spec/fixtures/a.png', __FILE__))
+a = ImageCompare::Image.from_file(File.expand_path('../../spec/fixtures/a.png', __FILE__))
+b = ImageCompare::Image.from_file(File.expand_path('../../spec/fixtures/a.png', __FILE__))
 
-rgb = ImageMatcher::Matcher.new
-grayscale = ImageMatcher::Matcher.new mode: :grayscale
-delta = ImageMatcher::Matcher.new mode: :delta
+rgb = ImageCompare::Matcher.new
+grayscale = ImageCompare::Matcher.new mode: :grayscale
+delta = ImageCompare::Matcher.new mode: :delta
 
 Benchmark.ips do |x|
   x.report 'RGB' do

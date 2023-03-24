@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'image_matcher/color_methods'
+require 'image_compare/color_methods'
 
-module ImageMatcher
+module ImageCompare
   class Image < ChunkyPNG::Image
     include ColorMethods
 

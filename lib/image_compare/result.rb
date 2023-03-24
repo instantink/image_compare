@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ImageMatcher
+module ImageCompare
   class Result
     attr_accessor :score, :image
     attr_reader :diff, :mode, :threshold, :lower_threshold

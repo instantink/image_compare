@@ -6,7 +6,7 @@ rescue LoadError => _e
   nil
 end
 
-require 'image_matcher'
+require 'image_compare'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].sort.each { |file| require file }
 

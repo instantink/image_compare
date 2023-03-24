@@ -2,8 +2,8 @@
 
 require 'spec_helper'
 
-describe ImageMatcher do
+describe ImageCompare do
   it 'has a version number' do
-    expect(ImageMatcher::VERSION).not_to be nil
+    expect(ImageCompare::VERSION).not_to be nil
   end
 end

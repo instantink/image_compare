@@ -2,10 +2,10 @@
 
 require_relative '../spec_helper'
 
-describe ImageMatcher::Modes::Grayscale do
+describe ImageCompare::Modes::Grayscale do
   let(:path_1) { image_path 'a' }
   let(:path_2) { image_path 'darker' }
-  subject { ImageMatcher.compare(path_1, path_2, **options) }
+  subject { ImageCompare.compare(path_1, path_2, **options) }
 
   let(:options) { {mode: :grayscale} }
 
@@ -23,7 +23,7 @@ describe ImageMatcher::Modes::Grayscale do
     end
 
     it 'creates correct difference image' do
-      expect(subject.difference_image).to eq(ImageMatcher::Image.from_file(image_path('grayscale_diff')))
+      expect(subject.difference_image).to eq(ImageCompare::Image.from_file(image_path('grayscale_diff')))
     end
   end
 

@@ -2,10 +2,10 @@
 
 require_relative '../spec_helper'
 
-describe ImageMatcher::Modes::Delta do
+describe ImageCompare::Modes::Delta do
   let(:path_1) { image_path 'a' }
   let(:path_2) { image_path 'darker' }
-  subject { ImageMatcher.compare(path_1, path_2, **options) }
+  subject { ImageCompare.compare(path_1, path_2, **options) }
 
   let(:options) { {mode: :delta} }
 
@@ -15,7 +15,7 @@ describe ImageMatcher::Modes::Delta do
     end
 
     context 'with custom threshold' do
-      subject { ImageMatcher.compare(path_1, path_2, **options).match? }
+      subject { ImageCompare.compare(path_1, path_2, **options).match? }
 
       context 'below score' do
         let(:options) { {mode: :delta, threshold: 0.01} }
@@ -45,7 +45,7 @@ describe ImageMatcher::Modes::Delta do
     end
 
     it 'creates correct difference image' do
-      expect(subject.difference_image).to eq(ImageMatcher::Image.from_file(image_path('delta_diff')))
+      expect(subject.difference_image).to eq(ImageCompare::Image.from_file(image_path('delta_diff')))
     end
 
     context 'with high tolerance' do

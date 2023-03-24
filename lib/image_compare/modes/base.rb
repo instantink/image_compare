@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module ImageMatcher
+module ImageCompare
   module Modes
     class Base
-      require 'image_matcher/rectangle'
+      require 'image_compare/rectangle'
       include ColorMethods
 
       attr_reader :result, :threshold, :lower_threshold, :bounds, :exclude_rect, :include_rect

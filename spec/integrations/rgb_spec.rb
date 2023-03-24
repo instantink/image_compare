@@ -2,10 +2,10 @@
 
 require_relative '../spec_helper'
 
-describe ImageMatcher::Modes::RGB do
+describe ImageCompare::Modes::RGB do
   let(:path_1) { image_path 'a' }
   let(:path_2) { image_path 'darker' }
-  subject { ImageMatcher.compare(path_1, path_2, **options) }
+  subject { ImageCompare.compare(path_1, path_2, **options) }
   let(:options) { {} }
 
   context 'with darker' do
@@ -22,14 +22,14 @@ describe ImageMatcher::Modes::RGB do
     end
 
     it 'creates correct difference image' do
-      expect(subject.difference_image).to eq(ImageMatcher::Image.from_file(image_path('rgb_diff')))
+      expect(subject.difference_image).to eq(ImageCompare::Image.from_file(image_path('rgb_diff')))
     end
   end
 
   context 'exclude rect' do
     let(:options) { {exclude_rect: [200, 150, 275, 200]} }
     let(:path_2) { image_path 'a1' }
-    it { expect(subject.difference_image).to eq ImageMatcher::Image.from_file(image_path('exclude')) }
+    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path('exclude')) }
     it { expect(subject.score).to eq 0 }
 
     context 'calculates score correctly' do
@@ -42,7 +42,7 @@ describe ImageMatcher::Modes::RGB do
   context 'include rect' do
     let(:options) { {include_rect: [0, 0, 100, 100]} }
     let(:path_2) { image_path 'a1' }
-    it { expect(subject.difference_image).to eq ImageMatcher::Image.from_file(image_path('include')) }
+    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path('include')) }
     it { expect(subject.score).to eq 0 }
 
     context 'calculates score correctly' do

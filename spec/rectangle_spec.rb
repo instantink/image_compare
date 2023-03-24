@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe ImageMatcher::Rectangle do
+describe ImageCompare::Rectangle do
   let(:rect) { described_class.new(0, 0, 9, 9) }
 
   describe 'area' do

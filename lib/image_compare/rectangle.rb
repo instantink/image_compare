@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ImageMatcher
+module ImageCompare
   class Rectangle
     attr_accessor :left, :top, :right, :bot
 

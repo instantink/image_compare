@@ -8,7 +8,7 @@ rescue LoadError => _e
   nil
 end
 
-module ImageMatcher
+module ImageCompare
   module ColorMethods
     include ChunkyPNG::Color
 

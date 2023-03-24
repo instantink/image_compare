@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'image_matcher'
+require 'pry'
+
+Pry.start

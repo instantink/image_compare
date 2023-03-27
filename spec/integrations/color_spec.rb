@@ -18,19 +18,19 @@ describe ImageCompare::Modes::Delta do
       subject { ImageCompare.compare(path_1, path_2, **options).match? }
 
       context 'below score' do
-        let(:options) { {mode: :delta, threshold: 0.01} }
+        let(:options) { {mode: :color, threshold: 0.01} }
 
         it { expect(subject).to be_falsey }
       end
 
       context 'above score' do
-        let(:options) { {mode: :delta, threshold: 0.1} }
+        let(:options) { {mode: :color, threshold: 0.1} }
 
         it { expect(subject).to be_truthy }
       end
 
       context 'with lower threshold' do
-        let(:options) { {mode: :delta, threshold: 0.1, lower_threshold: 0.09} }
+        let(:options) { {mode: :color, threshold: 0.1, lower_threshold: 0.09} }
 
         it { expect(subject).to be_falsey }
       end
@@ -49,7 +49,7 @@ describe ImageCompare::Modes::Delta do
     end
 
     context 'with high tolerance' do
-      let(:options) { {mode: :delta, tolerance: 0.1} }
+      let(:options) { {mode: :color, tolerance: 0.1} }
 
       it 'score around 0.0038' do
         expect(subject.send(:score)).to be_within(0.0001).of(0.0038)

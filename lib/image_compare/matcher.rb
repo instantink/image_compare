@@ -16,7 +16,7 @@ module ImageCompare
     attr_reader :mode
 
     def initialize(**options)
-      mode_type = options.delete(:mode) || :rgb
+      mode_type = options.delete(:mode) || :color
       raise ArgumentError, "Undefined mode: #{mode_type}" unless MODES.key?(mode_type)
       @mode = Modes.const_get(MODES[mode_type]).new(**options)
     end

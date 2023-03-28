@@ -22,8 +22,8 @@ module ImageCompare
         @bounds = Rectangle.new(*include_rect.bounds)
 
         b.compare_each_pixel(a, area: include_rect) do |b_pixel, a_pixel, x, y|
-          next if pixels_equal?(b_pixel, a_pixel)
           next if !exclude_rect.nil? && exclude_rect.contains_point?(x, y)
+          next if pixels_equal?(b_pixel, a_pixel)
           update_result(b_pixel, a_pixel, x, y)
         end
 

@@ -2,7 +2,7 @@
 
 module ImageCompare
   module Modes
-    require 'image_compare/modes/base'
+    require "image_compare/modes/base"
 
     class Color < Base
       include ColorMethods
@@ -33,20 +33,20 @@ module ImageCompare
           left: bounds.bounds[0],
           top: bounds.bounds[1],
           right: bounds.bounds[2],
-          bot:  bounds.bounds[3]
+          bot: bounds.bounds[3]
         }
 
         exclude_area = {
           left: exclude_rect.bounds[0],
           top: exclude_rect.bounds[1],
           right: exclude_rect.bounds[2],
-          bot:  exclude_rect.bounds[3]
+          bot: exclude_rect.bounds[3]
         }
 
         diff_area[:left] <= exclude_area[:left] &&
-        diff_area[:top] <= exclude_area[:top] &&
-        diff_area[:right] >= exclude_area[:right] &&
-        diff_area[:bot] >= exclude_area[:bot]
+          diff_area[:top] <= exclude_area[:top] &&
+          diff_area[:right] >= exclude_area[:right] &&
+          diff_area[:bot] >= exclude_area[:bot]
       end
 
       def pixels_equal?(a, b)

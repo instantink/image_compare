@@ -27,7 +27,9 @@ module ImageCompare
     end
 
     def contains_point?(x, y)
-      x.between?(left, right) && y.between?(top, bot)
+      (x >= left && y >= top && x <= right && y <= bot) ||
+        (x <= right && y <= top && x >= left && y >= bot) ||
+        (x.between?(right, left) && y.between?(bot, top))
     end
   end
 end

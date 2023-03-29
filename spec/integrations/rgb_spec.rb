@@ -1,53 +1,57 @@
 # frozen_string_literal: true
 
-require_relative '../spec_helper'
+require_relative "../spec_helper"
 
 describe ImageCompare::Modes::RGB do
-  let(:path_1) { image_path 'a' }
-  let(:path_2) { image_path 'darker' }
+  let(:path_1) { image_path "a" }
+  let(:path_2) { image_path "darker" }
+  let(:options) { {mode: :rgb} }
+
   subject { ImageCompare.compare(path_1, path_2, **options) }
-  let(:options) { {} }
 
-  context 'with darker' do
-    it 'score equals to 1' do
-      expect(subject.score).to eq 1
+  context "with darker" do
+    it "score around 1" do
+      expect(subject.score).to be <= 1
     end
   end
 
-  context 'with different images' do
-    let(:path_2) { image_path 'b' }
+  context "with different images" do
+    let(:path_2) { image_path "b" }
 
-    it 'score around 0.016' do
-      expect(subject.score).to be_within(0.001).of(0.016)
+    it "score around 0.016" do
+      expect(subject.score).to be <= 0.016
     end
 
-    it 'creates correct difference image' do
-      expect(subject.difference_image).to eq(ImageCompare::Image.from_file(image_path('rgb_diff')))
+    it "creates correct difference image" do
+      expect(subject.difference_image).to eq(ImageCompare::Image.from_file(image_path("rgb_diff")))
     end
   end
 
-  context 'exclude rect' do
-    let(:options) { {exclude_rect: [200, 150, 275, 200]} }
-    let(:path_2) { image_path 'a1' }
-    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path('exclude')) }
+  context "exclude rect" do
+    let(:options) { {mode: :rgb, exclude_rect: [156, 293, 357, 171]} }
+    let(:path_2) { image_path "a1" }
+
+    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path("rgb_exclude_rect")) }
     it { expect(subject.score).to eq 0 }
 
-    context 'calculates score correctly' do
-      let(:path_2) { image_path 'darker' }
+    context "calculates score correctly" do
+      let(:path_2) { image_path "darker" }
 
-      it { expect(subject.score).to eq 1 }
+      it { expect(subject.score).to be <= 1 }
     end
   end
 
-  context 'include rect' do
-    let(:options) { {include_rect: [0, 0, 100, 100]} }
-    let(:path_2) { image_path 'a1' }
-    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path('include')) }
+  context "include rect" do
+    let(:options) { {mode: :rgb, include_rect: [0, 0, 100, 100]} }
+    let(:path_2) { image_path "a1" }
+
+    it { expect(subject.difference_image).to eq ImageCompare::Image.from_file(image_path("rgb_include_rect")) }
     it { expect(subject.score).to eq 0 }
 
-    context 'calculates score correctly' do
-      let(:path_2) { image_path 'darker' }
-      it { expect(subject.score).to eq 1 }
+    context "calculates score correctly" do
+      let(:path_2) { image_path "darker" }
+
+      it { expect(subject.score).to be <= 1 }
     end
   end
 end

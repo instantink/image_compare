@@ -2,15 +2,15 @@
 
 module ImageCompare
   class Matcher
-    require 'image_compare/image'
-    require 'image_compare/result'
-    require 'image_compare/modes'
+    require "image_compare/image"
+    require "image_compare/result"
+    require "image_compare/modes"
 
     MODES = {
-      rgb: 'RGB',
-      delta: 'Delta',
-      grayscale: 'Grayscale',
-      color: 'Color'
+      rgb: "RGB",
+      delta: "Delta",
+      grayscale: "Grayscale",
+      color: "Color"
     }.freeze
 
     attr_reader :mode
@@ -26,25 +26,27 @@ module ImageCompare
       b = Image.from_file(b) unless b.is_a?(Image)
 
       unless a.sizes_match?(b)
-        raise SizesMismatchError,
-              "Size mismatch: first image size: #{a.width}x#{a.height}, second image size: #{b.width}x#{b.height}"
+        raise(
+          SizesMismatchError,
+          "Size mismatch: first image size: #{a.width}x#{a.height}, second image size: #{b.width}x#{b.height}"
+        )
       end
 
       image_area = Rectangle.new(0, 0, a.width - 1, a.height - 1)
 
       unless mode.exclude_rect.nil?
         unless image_area.contains?(mode.exclude_rect)
-          raise ArgumentError, 'Bounds must be in image'
+          raise ArgumentError, "Bounds must be in image"
         end
       end
 
       unless mode.include_rect.nil?
         unless image_area.contains?(mode.include_rect)
-          raise ArgumentError, 'Bounds must be in image'
+          raise ArgumentError, "Bounds must be in image"
         end
         unless mode.exclude_rect.nil?
           unless mode.include_rect.contains?(mode.exclude_rect)
-            raise ArgumentError, 'Included area must contain excluded'
+            raise ArgumentError, "Included area must contain excluded"
           end
         end
       end

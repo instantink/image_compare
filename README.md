@@ -1,6 +1,3 @@
-[![Gem Version](https://badge.fury.io/rb/image_compare.svg)](https://rubygems.org/gems/image_compare)
-[![Build](https://github.com/instantink/image_compare/workflows/Build/badge.svg)](https://github.com/instantink/image_compare/actions)
-
 # ImageCompare
 
 Compare PNG images in pure Ruby (uses [ChunkyPNG](https://github.com/wvanbergen/chunky_png)) using different algorithms.

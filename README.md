@@ -193,7 +193,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/instan
 - `rake rubocop`
 - `rake rubocop:md`
 - `rake spec`
-- `ruby examples/performance.rb` Create the gemfile.local file with the content below to run the performance tests:
+- `ruby examples/performance.rb` Create the "gemfile.local" file with the content below to run the performance tests:
 ```ruby
 # frozen_string_literal: true
 

@@ -1,5 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/image_compare.svg)](https://rubygems.org/gems/image_compare)
-[![Build](https://github.com/instantink/image_compare/workflows/Build/badge.svg)](https://github.com/instantink/image_compare/actions)
+[![Gem Version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=rb&r=r&type=6e&v=1.0.3&x2=0)](https://rubygems.org/gems/image_compare)
 
 # ImageCompare
 

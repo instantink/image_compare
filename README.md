@@ -30,7 +30,7 @@ ImageCompare supports different ways (_modes_) of comparing images.
 
 Source images used in examples:
 
-a1.png
+a.png
 
 <img alt="a.png" src="spec/fixtures/a.png" />
 

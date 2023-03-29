@@ -3,7 +3,7 @@
 module ImageCompare
   module Modes
     class Base
-      require 'image_compare/rectangle'
+      require "image_compare/rectangle"
       include ColorMethods
 
       attr_reader :result, :threshold, :lower_threshold, :bounds, :exclude_rect, :include_rect

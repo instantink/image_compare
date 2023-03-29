@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'image_compare/color_methods'
+require "image_compare/color_methods"
 
 module ImageCompare
   class Image < ChunkyPNG::Image

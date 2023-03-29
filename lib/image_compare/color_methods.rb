@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'chunky_png'
+require "chunky_png"
 
 begin
-  require 'oily_png' unless RUBY_PLATFORM == 'java'
+  require "oily_png" unless RUBY_PLATFORM == "java"
 rescue LoadError => _e
   nil
 end

@@ -2,7 +2,7 @@
 
 module ImageCompare
   module Modes
-    require 'image_compare/modes/base'
+    require "image_compare/modes/base"
 
     class Grayscale < Base
       DEFAULT_TOLERANCE = 16

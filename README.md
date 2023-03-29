@@ -33,10 +33,19 @@ ImageCompare supports different ways (_modes_) of comparing images.
 
 Source images used in examples:
 
+a1.png
+
 <img alt="a.png" src="spec/fixtures/a.png" />
+
+b.png
+
 <img alt="b.png" src="spec/fixtures/b.png" />
 
-### Color
+a1.png
+
+<img alt="a1.png" src="spec/fixtures/a1.png" />
+
+### Base (Color) mode (a.png X a1.png)
 
 Compare pixels, resulting score is a ratio of unequal pixels (with respect to provided tolerance).
 
@@ -44,27 +53,27 @@ Resulting diff contains version of the first image with different pixels highlig
 
 <img alt="color_diff" src="spec/fixtures/color_diff.png" />
 
-### Base (RGB) mode
+### RGB mode (a.png X b.png)
 
 Compare pixels by values, resulting score is a ratio of unequal pixels.
 Resulting diff represents per-channel difference.
 
-<img alt="rgb_diff.png" src="spec/fixtures/rgb_diff.png" width="480" />
+<img alt="rgb_diff.png" src="spec/fixtures/rgb_diff.png" />
 
-### Grayscale mode
+### Grayscale mode (a.png X a1.png)
 
 Compare pixels as grayscale (by brightness and alpha), resulting score is a ratio of unequal pixels (with respect to provided tolerance).
 
 Resulting diff contains grayscale version of the first image with different pixels highlighted in red and red bounding box.
 
-<img alt="grayscale_diff.png" src="spec/fixtures/grayscale_diff.png" width="480" />
+<img alt="grayscale_diff.png" src="spec/fixtures/grayscale_diff.png" />
 
-### Delta
+### Delta (a.png X a1.png)
 
 Compare pixels using [Delta E](https://en.wikipedia.org/wiki/Color_difference) distance.
 Resulting diff contains grayscale version of the first image with different pixels highlighted in red (with respect to diff score).
 
-<img alt="delta_diff.png" src="spec/fixtures/delta_diff.png" width="480" />
+<img alt="delta_diff.png" src="spec/fixtures/delta_diff.png" />
 
 ## Usage
 
@@ -111,19 +120,18 @@ res.match? #=> true
 res.score #=> 0.0
 ```
 
-## Excluding rectangle
+## Excluding rectangle (a.png X a1.png)
 
-<img alt="a.png" src="spec/fixtures/a.png" />
-<img alt="a1.png" src="spec/fixtures/a1.png" />
+<img alt="a1.png" src="spec/fixtures/rgb_exclude_rect.png" />
 
 You can exclude rectangle from comparing by passing `:exclude_rect` to `compare`.
 E.g., if `path_1` and `path_2` contain images above
 ```ruby
-ImageCompare.compare("path/image1.png", "path/image2.png", exclude_rect: [200, 150, 275, 200]).match? # => true
+ImageCompare.compare("path/image1.png", "path/image2.png", mode: :rgb, exclude_rect: [200, 150, 275, 200]).match? # => true
 
 # or
 
-cmp = ImageCompare::Matcher.new exclude_rect: [200, 150, 275, 200]
+cmp = ImageCompare::Matcher.new mode: :rgb, exclude_rect: [200, 150, 275, 200]
 res = cmp.compare("path/image1.png", "path/image2.png")
 res #=> ImageCompare::Result
 res.match? #=> true

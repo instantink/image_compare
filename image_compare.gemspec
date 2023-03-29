@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir.glob("lib/**/*") + Dir.glob("bin/**/*") + %w[README.md LICENSE.txt CHANGELOG.md]
   spec.require_paths = ["lib"]
   spec.required_ruby_version = ">= 3.2.0"
-  spec.add_dependency "chunky_png"
-  spec.add_development_dependency "rake", ">= 13.0"
-  spec.add_development_dependency "rspec", ">= 3.9"
+  spec.add_dependency "chunky_png", "~> 1.4"
+  spec.add_development_dependency "rake", "~> 13.0", ">= 13.0.6"
+  spec.add_development_dependency "rspec", "~> 3.12"
 end

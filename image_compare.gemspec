@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     "bug_tracker_uri" => "https://github.com/instantink/image_compare/issues",
     "changelog_uri" => "https://github.com/instantink/image_compare/blob/master/CHANGELOG.md",
-    "documentation_uri" => "https://github.com/instantink/image_compare",
+    "documentation_uri" => "https://www.rubydoc.info/gems/image_compare/#{ImageCompare::VERSION}",
     "homepage_uri" => "https://github.com/instantink/image_compare",
     "source_code_uri" => "https://github.com/instantink/image_compare"
   }

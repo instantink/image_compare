@@ -8,7 +8,7 @@ This is an utility library for image regression testing.
 
 ## Installation
 
-Add this line to your application"s Gemfile:
+Add this line to your application's Gemfile:
 
 ```ruby
 gem "image_compare"

@@ -34,12 +34,6 @@ module ImageCompare
 
       image_area = Rectangle.new(0, 0, a.width - 1, a.height - 1)
 
-      unless mode.exclude_rect.nil?
-        unless image_area.contains?(mode.exclude_rect)
-          raise ArgumentError, "Bounds must be in image"
-        end
-      end
-
       unless mode.include_rect.nil?
         unless image_area.contains?(mode.include_rect)
           raise ArgumentError, "Bounds must be in image"

@@ -19,11 +19,9 @@ module ImageCompare
       def diff(bg, diff)
         diff_image = bg.highlight_rectangle(exclude_rect, :blue)
 
-        if area_in_exclude_rect?
-          diff_image
-        else
-          diff_image.highlight_rectangle(bounds)
-        end
+        return diff_image if self.result.match?
+
+        diff_image.highlight_rectangle(bounds) unless area_in_exclude_rect?
       end
 
       def area_in_exclude_rect?

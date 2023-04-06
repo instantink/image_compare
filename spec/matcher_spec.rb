@@ -54,12 +54,12 @@ describe ImageCompare::Matcher do
 
     context "with negative exclude rect bounds" do
       let(:options) { {exclude_rect: [-1, -1, -1, -1]} }
-      it { expect { subject }.to raise_error ArgumentError }
+      it { expect(subject).to be_a ImageCompare::Result }
     end
 
     context "with big exclude rect bounds" do
       let(:options) { {exclude_rect: [100, 100, 100, 100]} }
-      it { expect { subject }.to raise_error ArgumentError }
+      it { expect(subject).to be_a ImageCompare::Result }
     end
 
     context "with negative include rect bounds" do

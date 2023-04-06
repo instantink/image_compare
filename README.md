@@ -1,4 +1,7 @@
 # ImageCompare
+[<img src="https://shields.io/github/license/instantink/image_compare?color=%2345a34c" />](LICENSE.txt)
+[<img src="https://shields.io/gem/v/image_compare" />](https://rubygems.org/gems/image_compare)
+<img alt="Gem total downloads" src="https://shields.io/gem/dt/image_compare" />
 
 Compare PNG images in pure Ruby (uses [ChunkyPNG](https://github.com/wvanbergen/chunky_png)) using different algorithms.
 This is an utility library for image regression testing.

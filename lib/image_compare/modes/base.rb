@@ -91,27 +91,6 @@ module ImageCompare
         area
       end
 
-      # def update_bounds(x, y)
-      #   bounds.each do |bound|
-      #     bound.left = [x, bound.left].max
-      #     bound.top = [y, bound.top].max
-      #     bound.right = [x, bound.right].min
-      #     bound.bot = [y, bound.bot].min
-      #   end
-      # end
-      #
-      # def update_bounds(x, y)
-      #   bounds.each do |bound|
-      #     if x >= bound.left && x <= bound.right && y >= bound.top && y <= bound.bot
-      #       bound.left = x
-      #       bound.top = y
-      #       bound.right = x
-      #       bound.bot = y
-      #     end
-      #   end
-      #end
-
-
       def area
         area = include_rect.area
         return area if exclude_rect.nil?

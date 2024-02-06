@@ -19,21 +19,23 @@ module ImageCompare
       def diff(bg, _diff)
         diff_image = bg.highlight_rectangle(exclude_rect, :blue)
 
-        unless result.match? || area_in_exclude_rect?
-          return diff_image.highlight_rectangle(bounds, :red)
+        @different_areas.each do |area|
+          unless result.match? || area_in_exclude_rect?(area)
+            diff_image.highlight_rectangle(area, :red)
+          end
         end
 
         diff_image
       end
 
-      def area_in_exclude_rect?
+      def area_in_exclude_rect?(bound)
         return false if exclude_rect.nil?
 
         diff_area = {
-          left: bounds.bounds[0],
-          top: bounds.bounds[1],
-          right: bounds.bounds[2],
-          bot: bounds.bounds[3]
+          left: bound.bounds[0],
+          top: bound.bounds[1],
+          right: bound.bounds[2],
+          bot: bound.bounds[3]
         }
 
         exclude_area = {

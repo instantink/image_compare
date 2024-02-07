@@ -6,7 +6,7 @@ module ImageCompare
       require "image_compare/rectangle"
       include ColorMethods
 
-      attr_reader :result, :threshold, :lower_threshold, :bounds, :exclude_rect, :include_rect
+      attr_reader :result, :threshold, :lower_threshold, :different_areas, :exclude_rect, :include_rect
 
       def initialize(threshold: 0.0, lower_threshold: 0.0, exclude_rect: nil, include_rect: nil)
         @include_rect = Rectangle.new(*include_rect) unless include_rect.nil?
@@ -37,9 +37,14 @@ module ImageCompare
           pixels_diff(diff_image, *pixels_pair)
         end
 
-        create_diff_image(bg, diff_image)
-          .highlight_rectangle(bounds)
-          .highlight_rectangle(include_rect, :green)
+        diff_image = create_diff_image(bg, diff_image)
+        if @different_areas.any?
+          @different_areas.each do |area|
+            diff_image = diff_image.highlight_rectangle(area)
+          end
+        end
+
+        diff_image.highlight_rectangle(include_rect, :green)
       end
 
       def score
@@ -77,7 +82,7 @@ module ImageCompare
       def update_bounds(x, y)
         current_area_index = connected_area_index(x, y)
         if @different_areas.empty? || current_area_index.nil?
-          create_area(x,y)
+          create_area(x, y)
           current_area_index = @different_areas.size - 1
         end
 

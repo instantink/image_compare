@@ -34,7 +34,6 @@ module ImageCompare
 
     def close_to_the_area?(x, y)
       offsets = [-1, 0, 1]
-
       offsets.product(offsets).any? do |dx, dy|
         next if dx.zero? && dy.zero?
         contains_point?(x + dx, y + dy)
@@ -43,7 +42,6 @@ module ImageCompare
 
     def rect_close_to_the_area?(rect)
       offsets = [-1, 0, 1]
-
       offsets.product(offsets).any? do |dx, dy|
         next if dx.zero? && dy.zero?
         new_rect = Rectangle.new(rect.left + dx, rect.top + dy, rect.right + dx, rect.bot + dy)

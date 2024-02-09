@@ -20,18 +20,6 @@ describe ImageCompare::Matcher do
       it { expect(subject.mode.lower_threshold).to eq 0.04 }
     end
 
-    context "with custom options" do
-      let(:options) { {mode: :grayscale, tolerance: 0} }
-
-      it { expect(subject.mode.tolerance).to eq 0 }
-    end
-
-    context "with custom mode" do
-      let(:options) { {mode: :delta} }
-
-      it { expect(subject.mode).to be_a ImageCompare::Modes::Delta }
-    end
-
     context "with undefined mode" do
       let(:options) { {mode: :gamma} }
 

@@ -53,28 +53,6 @@ Resulting diff contains version of the first image with different pixels highlig
 
 <img alt="color_diff" src="spec/fixtures/color_diff.png" />
 
-### RGB mode (a.png X b.png)
-
-Compare pixels by values, resulting score is a ratio of unequal pixels.
-Resulting diff represents per-channel difference.
-
-<img alt="rgb_diff.png" src="spec/fixtures/rgb_diff.png" />
-
-### Grayscale mode (a.png X a1.png)
-
-Compare pixels as grayscale (by brightness and alpha), resulting score is a ratio of unequal pixels (with respect to provided tolerance).
-
-Resulting diff contains grayscale version of the first image with different pixels highlighted in red and red bounding box.
-
-<img alt="grayscale_diff.png" src="spec/fixtures/grayscale_diff.png" />
-
-### Delta (a.png X a1.png)
-
-Compare pixels using [Delta E](https://en.wikipedia.org/wiki/Color_difference) distance.
-Resulting diff contains grayscale version of the first image with different pixels highlighted in red (with respect to diff score).
-
-<img alt="delta_diff.png" src="spec/fixtures/delta_diff.png" />
-
 ## Usage
 
 ```ruby

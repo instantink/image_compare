@@ -21,7 +21,6 @@ module ImageCompare
         result.image = a
         @include_rect ||= a.bounding_rect
         b.compare_each_pixel(a, area: include_rect) do |b_pixel, a_pixel, x, y|
-
           next if !exclude_rect.nil? && exclude_rect.contains_point?(x, y)
           next if pixels_equal?(b_pixel, a_pixel)
           update_result(b_pixel, a_pixel, x, y)
@@ -38,10 +37,8 @@ module ImageCompare
         end
 
         diff_image = create_diff_image(bg, diff_image)
-        if @different_areas.any?
-          @different_areas.each do |area|
-            diff_image = diff_image.highlight_rectangle(area)
-          end
+        @different_areas.each do |area|
+          diff_image = diff_image.highlight_rectangle(area)
         end
 
         diff_image.highlight_rectangle(include_rect, :green)

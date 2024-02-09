@@ -57,4 +57,25 @@ describe ImageCompare::Modes::Color do
       end
     end
   end
+
+  context "with non different images" do
+    let(:path_2) { image_path "a" }
+
+    it "score around 0.0057" do
+      expect(subject.send(:score)).to eq 0
+    end
+
+    it "creates correct difference image" do
+      subject.difference_image.save("color_diff.png")
+      expect(subject.difference_image).not_to eql(ImageCompare::Image.from_file(image_path("color_diff")))
+    end
+
+    context "with high tolerance" do
+      let(:options) { {mode: :color, tolerance: 0.1} }
+
+      it "score around 0.0075" do
+        expect(subject.send(:score)).to eq 0
+      end
+    end
+  end
 end

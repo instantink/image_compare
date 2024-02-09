@@ -66,7 +66,7 @@ describe ImageCompare::Modes::Color do
     end
 
     it "creates correct difference image" do
-      subject.difference_image.save("color_diff.png")
+      subject.difference_image.save('color_diff.png')
       expect(subject.difference_image).not_to eql(ImageCompare::Image.from_file(image_path("color_diff")))
     end
 

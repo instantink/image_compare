@@ -14,7 +14,7 @@ module ImageCompare
         @threshold = threshold
         @lower_threshold = lower_threshold
         @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)
-        @different_areas = []
+        @different_areas = Set.new@different_areas = Set.new
       end
 
       def compare(a, b)
@@ -65,35 +65,35 @@ module ImageCompare
       end
 
       def areas_connected?(origin_area)
-        @different_areas = @different_areas.reject do |area|
+        @different_areas.delete_if do |area|
           if origin_area.rect_close_to_the_area?(area)
-            origin_area.merge(area)
+            origin_area = origin_area.merge(area)
             true
           else
             false
           end
         end
+        @different_areas.add(origin_area)
       end
 
       def create_area(x, y)
-        @different_areas << Rectangle.new(x, y, x, y)
+        @different_areas.add(Rectangle.new(x, y, x, y))
       end
 
       def update_bounds(x, y)
-        current_area_index = connected_area_index(x, y)
-        if @different_areas.empty? || current_area_index.nil?
+        current_area = @different_areas.find { |area| area.close_to_the_area?(x, y) }
+        if current_area.nil?
           create_area(x, y)
-          current_area_index = @different_areas.size - 1
+          current_area = @different_areas.to_a.last
         end
 
-        area = @different_areas[current_area_index]
-        area.left = [x, area.left].max
-        area.top = [y, area.top].max
-        area.right = [x, area.right].min
-        area.bot = [y, area.bot].min
+        current_area.left = [x, current_area.left].max
+        current_area.top = [y, current_area.top].max
+        current_area.right = [x, current_area.right].min
+        current_area.bot = [y, current_area.bot].min
 
-        areas_connected?(area)
-        area
+        areas_connected?(current_area)
+        current_area
       end
 
       def area

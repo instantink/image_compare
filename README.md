@@ -4,7 +4,7 @@
 <img alt="Gem total downloads" src="https://shields.io/gem/dt/image_compare" />
 
 Compare PNG images in pure Ruby (uses [ChunkyPNG](https://github.com/wvanbergen/chunky_png)) using different algorithms.
-This is an utility library for image regression testing.
+This is a utility library for image regression testing.
 
 ## Installation
 

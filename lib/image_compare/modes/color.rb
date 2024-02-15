@@ -24,7 +24,6 @@ module ImageCompare
 
         @different_areas.each do |area|
           unless result.match? || area_in_exclude_rect?(area)
-            puts area.join("\n")
             diff_image = diff_image.highlight_rectangle(area, :red)
           end
         end

@@ -41,12 +41,12 @@ describe ImageCompare::Matcher do
     end
 
     context "with negative exclude rect bounds" do
-      let(:options) { {exclude_rect: [-1, -1, -1, -1]} }
+      let(:options) { {exclude_rects: [[-1, -1, -1, -1]]} }
       it { expect(subject).to be_a ImageCompare::Result }
     end
 
     context "with big exclude rect bounds" do
-      let(:options) { {exclude_rect: [100, 100, 100, 100]} }
+      let(:options) { {exclude_rects: [[100, 100, 100, 100]]} }
       it { expect(subject).to be_a ImageCompare::Result }
     end
 
@@ -61,7 +61,7 @@ describe ImageCompare::Matcher do
     end
 
     context "with wrong include and exclude rects combination" do
-      let(:options) { {include_rect: [1, 1, 2, 2], exclude_rect: [0, 0, 1, 1]} }
+      let(:options) { {include_rect: [1, 1, 2, 2], exclude_rects: [[0, 0, 1, 1]]} }
       it { expect { subject }.to raise_error ArgumentError }
     end
   end

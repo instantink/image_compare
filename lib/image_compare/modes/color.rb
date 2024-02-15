@@ -17,11 +17,14 @@ module ImageCompare
       end
 
       def diff(bg, _diff)
-        diff_image = bg.highlight_rectangle(exclude_rect, :blue)
+        diff_image = bg
+        @exclude_rects.each do |rect|
+          diff_image = diff_image.highlight_rectangle(rect, :blue)
+        end
 
         @different_areas.each do |area|
           unless result.match? || area_in_exclude_rect?(area)
-            diff_image.highlight_rectangle(area, :red)
+            diff_image = diff_image.highlight_rectangle(area, :red)
           end
         end
 
@@ -29,7 +32,7 @@ module ImageCompare
       end
 
       def area_in_exclude_rect?(bound)
-        return false if exclude_rect.nil?
+        return false if exclude_rects.nil?
 
         diff_area = {
           left: bound.bounds[0],
@@ -38,17 +41,19 @@ module ImageCompare
           bot: bound.bounds[3]
         }
 
-        exclude_area = {
-          left: exclude_rect.bounds[0],
-          top: exclude_rect.bounds[1],
-          right: exclude_rect.bounds[2],
-          bot: exclude_rect.bounds[3]
-        }
+        exclude_rects.any? do |exclude_rect|
+          exclude_area = {
+            left: exclude_rect.bounds[0],
+            top: exclude_rect.bounds[1],
+            right: exclude_rect.bounds[2],
+            bot: exclude_rect.bounds[3]
+          }
 
-        diff_area[:left] <= exclude_area[:left] &&
-          diff_area[:top] <= exclude_area[:top] &&
-          diff_area[:right] >= exclude_area[:right] &&
-          diff_area[:bot] >= exclude_area[:bot]
+          diff_area[:left] <= exclude_area[:left] &&
+            diff_area[:top] <= exclude_area[:top] &&
+            diff_area[:right] >= exclude_area[:right] &&
+            diff_area[:bot] >= exclude_area[:bot]
+        end
       end
 
       def pixels_equal?(a, b)

@@ -38,9 +38,12 @@ module ImageCompare
         unless image_area.contains?(mode.include_rect)
           raise ArgumentError, "Bounds must be in image"
         end
-        unless mode.exclude_rect.nil?
-          unless mode.include_rect.contains?(mode.exclude_rect)
-            raise ArgumentError, "Included area must contain excluded"
+
+        unless mode.exclude_rects.nil?
+          mode.exclude_rects.each do |exclude_rect|
+            unless mode.include_rect.contains?(exclude_rect)
+              raise ArgumentError, "Included area must contain excluded"
+            end
           end
         end
       end

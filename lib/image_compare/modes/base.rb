@@ -6,11 +6,11 @@ module ImageCompare
       require "image_compare/rectangle"
       include ColorMethods
 
-      attr_reader :result, :threshold, :lower_threshold, :different_areas, :exclude_rect, :include_rect
+      attr_reader :result, :threshold, :lower_threshold, :different_areas, :exclude_rects, :include_rect
 
-      def initialize(threshold: 0.0, lower_threshold: 0.0, exclude_rect: nil, include_rect: nil)
+      def initialize(threshold: 0.0, lower_threshold: 0.0, exclude_rects: [], include_rect: nil)
         @include_rect = Rectangle.new(*include_rect) unless include_rect.nil?
-        @exclude_rect = Rectangle.new(*exclude_rect) unless exclude_rect.nil?
+        @exclude_rects = @exclude_rects = exclude_rects.empty? ? Set.new : Set.new(exclude_rects.map { |rect| Rectangle.new(*rect) })
         @threshold = threshold
         @lower_threshold = lower_threshold
         @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)
@@ -21,7 +21,7 @@ module ImageCompare
         result.image = a
         @include_rect ||= a.bounding_rect
         b.compare_each_pixel(a, area: include_rect) do |b_pixel, a_pixel, x, y|
-          next if !exclude_rect.nil? && exclude_rect.contains_point?(x, y)
+          next if @exclude_rects.any? { |rect| rect.contains_point?(x, y) }
           next if pixels_equal?(b_pixel, a_pixel)
           update_result(b_pixel, a_pixel, x, y)
         end
@@ -94,9 +94,9 @@ module ImageCompare
       end
 
       def area
-        area = include_rect.area
-        return area if exclude_rect.nil?
-        area - exclude_rect.area
+        total_area = @include_rect.area
+        total_exclude_area = @exclude_rects.nil? ? 0 : @exclude_rects.sum { |rect| rect.area }
+        total_area - total_exclude_area
       end
     end
   end

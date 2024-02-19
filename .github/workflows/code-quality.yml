@@ -32,11 +32,11 @@ jobs:
     - name: Install dependencies
       run: bundle install
 
+    - name: Unit Testing
+      run: rake spec
+
     - name: Rubocop run
       run: rake rubocop
 
     - name: Rubocop:md run
-      run: rake rubocop:md
-
-    - name: Unit Testing
-      run: rake spec
+      run: rake rubocop:md   

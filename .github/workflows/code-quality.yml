@@ -15,7 +15,7 @@ on:
     - cron: '44 2 * * 2'
 
 jobs:
-  rubocop:
+  code-quality:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

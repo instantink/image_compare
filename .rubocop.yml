@@ -23,3 +23,6 @@ Standard/BlockSingleLineBraces:
 
 Style/FrozenStringLiteralComment:
   Enabled: true
+
+Style/ArgumentsForwarding:
+  Enabled: false

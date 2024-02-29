@@ -99,7 +99,6 @@ describe ImageCompare::Matcher do
       end
     end
 
-
     context "with multiple exclude rects with one difference" do
       let(:options) { {exclude_rects: [[179, 221, 188, 246],[289, 221, 307, 246]]} }
 

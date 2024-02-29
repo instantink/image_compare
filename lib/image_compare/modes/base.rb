@@ -62,15 +62,10 @@ module ImageCompare
       end
 
       def areas_connected?(origin_area)
-        @different_areas.delete_if do |area|
-          if origin_area.rect_close_to_the_area?(area)
-            origin_area = origin_area.merge(area)
-            true
-          else
-            false
-          end
-        end
-        @different_areas.add(origin_area)
+        connected_areas, disconnected_areas = @different_areas.partition { |area| origin_area.rect_close_to_the_area?(area) }
+        merged_area = connected_areas.reduce(origin_area, :merge)
+        @different_areas = disconnected_areas.to_set
+        @different_areas.add(merged_area)
       end
 
       def create_area(x, y)
@@ -82,12 +77,12 @@ module ImageCompare
         if current_area.nil?
           create_area(x, y)
           current_area = @different_areas.to_a.last
+        else
+          current_area.left = [x, current_area.left].min
+          current_area.top = [y, current_area.top].min
+          current_area.right = [x, current_area.right].max
+          current_area.bot = [y, current_area.bot].max
         end
-
-        current_area.left = [x, current_area.left].max
-        current_area.top = [y, current_area.top].max
-        current_area.right = [x, current_area.right].min
-        current_area.bot = [y, current_area.bot].min
 
         areas_connected?(current_area)
         current_area

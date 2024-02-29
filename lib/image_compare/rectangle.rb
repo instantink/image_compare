@@ -4,6 +4,8 @@ module ImageCompare
   class Rectangle
     attr_accessor :left, :top, :right, :bot
 
+    OFFSETS = [-1, 0, 1].product([-1, 0, 1]).reject { |dx, dy| dx.zero? && dy.zero? }.freeze
+
     def initialize(l, t, r, b)
       @left = l
       @top = t
@@ -27,33 +29,24 @@ module ImageCompare
     end
 
     def contains_point?(x, y)
-      (x >= left && y >= top && x <= right && y <= bot) ||
-        (x <= right && y <= top && x >= left && y >= bot) ||
-        (x.between?(right, left) && y.between?(bot, top))
+      x.between?(left, right) && y.between?(top, bot)
     end
 
     def close_to_the_area?(x, y)
-      offsets = [-1, 0, 1]
-      offsets.product(offsets).any? do |dx, dy|
-        next if dx.zero? && dy.zero?
-        contains_point?(x + dx, y + dy)
-      end
+      OFFSETS.any? { |dx, dy| contains_point?(x + dx, y + dy) }
     end
 
     def rect_close_to_the_area?(rect)
-      offsets = [-1, 0, 1]
-      offsets.product(offsets).any? do |dx, dy|
-        next if dx.zero? && dy.zero?
-        new_rect = Rectangle.new(rect.left + dx, rect.top + dy, rect.right + dx, rect.bot + dy)
-        overlaps?(new_rect)
+      OFFSETS.any? do |dx, dy|
+        overlaps?(rect.left + dx, rect.top + dy, rect.right + dx, rect.bot + dy)
       end
     end
 
-    def overlaps?(rect)
-      (left <= rect.right) &&
-        (right >= rect.left) &&
-        (top <= rect.bot) &&
-        (bot >= rect.top)
+    def overlaps?(other_left, other_top, other_right, other_bot)
+      (left <= other_right) &&
+        (right >= other_left) &&
+        (top <= other_bot) &&
+        (bot >= other_top)
     end
 
     def merge(rect)

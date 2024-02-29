@@ -62,11 +62,11 @@ describe ImageCompare::Rectangle do
 
   describe '#overlaps?' do
     it 'returns true if the rectangle overlaps with the other rectangle' do
-      expect(rect1.overlaps?(rect2)).to be_truthy
+      expect(rect1.overlaps?(rect2.left, rect2.top, rect2.bot, rect2.right)).to be_truthy
     end
 
     it 'returns false if the rectangle does not overlap with the other rectangle' do
-      expect(rect1.overlaps?(rect3)).to be_falsey
+      expect(rect1.overlaps?(rect3.left, rect3.top, rect3.bot, rect3.right)).to be_falsey
     end
   end
 

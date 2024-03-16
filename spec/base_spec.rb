@@ -31,6 +31,10 @@ describe ImageCompare::Matcher do
     let(:path_2) { image_path "very_small" }
     let(:path_3) { image_path "a" }
     let(:path_4) { image_path "a1" }
+    let(:path_5) { image_path "old" }
+    let(:path_6) { image_path "new" }
+    let(:path_7) { image_path "1" }
+    let(:path_8) { image_path "2" }
 
     it "compares two images and returns a Result object" do
       result = ImageCompare.compare(path_1, path_2)
@@ -117,6 +121,30 @@ describe ImageCompare::Matcher do
       it "compares two images and returns a Result object" do
         result = ImageCompare.compare(path_3, path_4, **options)
         result.difference_image.save('multiple_exclude_rects_with_multiple_differences.png')
+
+        expect(result).to be_a ImageCompare::Result
+        expect(result.send(:score)).to be > 0 and be < 1
+      end
+    end
+
+    # context "2with multiple exclude rects with multiple differences2" do
+    #   let(:options) { {exclude_rects: [[177, 1234, 297, 1361], [610, 1234, 730, 1361], [1043, 1234, 1163, 1361]]} }
+    #
+    #   it "2compares two images and returns a Result object2" do
+    #     result = ImageCompare.compare(path_5, path_6, **options)
+    #     result.difference_image.save('full_page.png')
+    #
+    #     expect(result).to be_a ImageCompare::Result
+    #     expect(result.send(:score)).to be > 0 and be < 1
+    #   end
+    # end
+
+    context "3with multiple exclude rects with multiple differences3" do
+      let(:options) { {} }
+
+      it "3compares two images and returns a Result object3" do
+        result = ImageCompare.compare(path_8, path_7, **options)
+        result.difference_image.save('full.png')
 
         expect(result).to be_a ImageCompare::Result
         expect(result.send(:score)).to be > 0 and be < 1

@@ -57,5 +57,22 @@ module ImageCompare
 
       Rectangle.new(new_left, new_top, new_right, new_bot)
     end
+
+    def shrink_area(x, y, order = :top_to_bottom)
+      @left += x
+      if order == :bottom_to_top
+        @bot -= y
+      elsif order == :top_to_bottom
+        @top += y
+      else
+        raise ArgumentError, "Invalid order: #{order}"
+      end
+
+      if @left > right || @top > bot || @bot < top
+        raise ArgumentError, "The shrink values are too large"
+      end
+
+      self
+    end
   end
 end

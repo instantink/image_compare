@@ -14,6 +14,32 @@ describe ImageCompare::Rectangle do
     it { expect(subject).to eq 100 }
   end
 
+  describe "shrink_area" do
+    context "normal shrink" do
+      subject { rect.shrink_area(5, 5) }
+
+      it { expect(subject.area).to eq 25 }
+    end
+
+    context "reverse shrink" do
+      subject { rect.shrink_area(5, 5, :bot_to_top) }
+
+      it { expect(subject.area).to eq 25 }
+    end
+
+    context "shrink with x zero" do
+      subject { rect.shrink_area(0, 5) }
+
+      it { expect(subject.area).to eq 50 }
+    end
+
+    context "shrink with y zero" do
+      subject { rect.shrink_area(5, 0) }
+
+      it { expect(subject.area).to eq 50 }
+    end
+  end
+
   describe "contains?" do
     let(:rect2) { described_class.new(1, 1, 8, 8) }
     subject { rect.contains?(rect2) }
@@ -40,38 +66,38 @@ describe ImageCompare::Rectangle do
     end
   end
 
-  describe '#close_to_the_area?' do
-    it 'returns true if the point is close to the rectangle' do
+  describe "#close_to_the_area?" do
+    it "returns true if the point is close to the rectangle" do
       expect(rect1.close_to_the_area?(1, 1)).to be_truthy
     end
 
-    it 'returns false if the point is not close to the rectangle' do
+    it "returns false if the point is not close to the rectangle" do
       expect(rect1.close_to_the_area?(5, 5)).to be_falsey
     end
   end
 
-  describe '#rect_close_to_the_area?' do
-    it 'returns true if the rectangle is close to the other rectangle' do
+  describe "#rect_close_to_the_area?" do
+    it "returns true if the rectangle is close to the other rectangle" do
       expect(rect1.rect_close_to_the_area?(rect2)).to be_truthy
     end
 
-    it 'returns false if the rectangle is not close to the other rectangle' do
+    it "returns false if the rectangle is not close to the other rectangle" do
       expect(rect1.rect_close_to_the_area?(rect3)).to be_falsey
     end
   end
 
-  describe '#overlaps?' do
-    it 'returns true if the rectangle overlaps with the other rectangle' do
+  describe "#overlaps?" do
+    it "returns true if the rectangle overlaps with the other rectangle" do
       expect(rect1.overlaps?(rect2.left, rect2.top, rect2.bot, rect2.right)).to be_truthy
     end
 
-    it 'returns false if the rectangle does not overlap with the other rectangle' do
+    it "returns false if the rectangle does not overlap with the other rectangle" do
       expect(rect1.overlaps?(rect3.left, rect3.top, rect3.bot, rect3.right)).to be_falsey
     end
   end
 
-  describe '#merge' do
-    it 'returns a new rectangle that covers the combined area of both rectangles' do
+  describe "#merge" do
+    it "returns a new rectangle that covers the combined area of both rectangles" do
       merged_rect = rect1.merge(rect2)
       expect(merged_rect.left).to eq(0)
       expect(merged_rect.top).to eq(0)

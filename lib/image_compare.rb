@@ -9,7 +9,7 @@ module ImageCompare
   require "image_compare/color_methods"
   require "image_compare/matcher"
 
-  def self.compare(path_a, path_b, **options)
-    Matcher.new(**options).compare(path_a, path_b)
+  def self.compare(path_a, path_b, **)
+    Matcher.new(**).compare(path_a, path_b)
   end
 end

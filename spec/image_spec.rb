@@ -18,7 +18,6 @@ describe ImageCompare::Image do
     let(:other_image) { described_class.new(width, height, ChunkyPNG::Color::BLACK) }
     let(:area) { ImageCompare::Rectangle.new(0, 0, width - 1, height - 1) }
 
-
     context "when order is top_to_bottom" do
       it "compares each pixel from top to bottom" do
         expect { |b| image.find_different_pixel(other_image, area: area, order: :top_to_bottom, &b) }.to yield_control.exactly(width * height).times

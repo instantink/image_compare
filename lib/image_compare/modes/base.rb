@@ -10,7 +10,7 @@ module ImageCompare
 
       def initialize(threshold: 0.0, lower_threshold: 0.0, exclude_rects: [], include_rect: nil)
         @include_rect = Rectangle.new(*include_rect) unless include_rect.nil?
-        @exclude_rects = @exclude_rects = exclude_rects.empty? ? Set.new : Set.new(exclude_rects.map { |rect| Rectangle.new(*rect) })
+        @exclude_rects = exclude_rects.empty? ? Set.new : Set.new(exclude_rects.map { |rect| Rectangle.new(*rect) })
         @threshold = threshold
         @lower_threshold = lower_threshold
         @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)

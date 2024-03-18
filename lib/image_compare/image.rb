@@ -15,42 +15,22 @@ module ImageCompare
       end
     end
 
-    def get_rows_and_cols(area, order)
+    def find_different_pixel(image, area: nil, order: :top_to_bottom)
+      area = bounding_rect if area.nil?
+
       rows = (area.top..area.bot).to_a
       rows.reverse! if order == :bottom_to_top
 
       cols = (area.left..area.right).to_a
 
-      [rows, cols]
-    end
-
-    def find_different_pixel(image, area: nil, order: :top_to_bottom)
-      area = bounding_rect if area.nil?
-      rows, cols = get_rows_and_cols(area, order)
-
       rows.each do |y|
         cols.each do |x|
           pixel_self = self[x, y]
           pixel_image = image[x, y]
-          return [pixel_self, pixel_image, x, y] if pixel_self != pixel_image
+          next if pixel_self == pixel_image
+          yield(pixel_self, pixel_image, x, y)
         end
       end
-      nil
-    end
-
-    def find_equals_row(image, area: nil, order: :top_to_bottom)
-      area = bounding_rect if area.nil?
-      rows, cols = get_rows_and_cols(area, order)
-
-      rows.each do |y|
-        equal_row = cols.all? do |x|
-          pixel_self = self[x, y]
-          pixel_image = image[x, y]
-          pixel_self == pixel_image
-        end
-        return y if equal_row
-      end
-      nil
     end
 
     def to_grayscale

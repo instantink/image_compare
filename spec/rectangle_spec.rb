@@ -22,7 +22,7 @@ describe ImageCompare::Rectangle do
     end
 
     context "reverse shrink" do
-      subject { rect.shrink_area(5, 5, :bot_to_top) }
+      subject { rect.shrink_area(5, 5, :bottom_to_top) }
 
       it { expect(subject.area).to eq 25 }
     end

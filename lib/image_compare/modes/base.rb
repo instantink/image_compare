@@ -94,7 +94,7 @@ module ImageCompare
 
       def area
         total_area = @include_rect.area
-        total_exclude_area = @exclude_rects.nil? ? 0 : @exclude_rects.sum { |rect| rect.area }
+        total_exclude_area = @exclude_rects.sum(&:area) || 0
         total_area - total_exclude_area
       end
     end

@@ -14,8 +14,7 @@ module ImageCompare
         @threshold = threshold
         @lower_threshold = lower_threshold
         @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)
-        @different_areas = Set.new @different_areas = Set.new
-        @sections = []
+        @different_areas = Set.new
       end
 
       def create_sections(session = [])

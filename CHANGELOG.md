@@ -9,6 +9,7 @@
 - v1.0.5: Fix gem documentation ([@gsguma][])
 - v1.0.6: Fix the error when trying to add a rect exclude area that is partially outside the image bounds ([@gsguma][])
 - v1.0.7: Fix all code smells and integration tests ([@gsguma][], [@cristianofmc][])
+- v2.0.0: Update to work with multiple areas and remove modes (grayscale, rgb, delta) ([@cristianofmc][])
 
 [@gsguma]: https://github.com/gsguma
 [@cristianofmc]: https://github.com/cristianofmc

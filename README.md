@@ -4,7 +4,7 @@
 <img alt="Gem total downloads" src="https://shields.io/gem/dt/image_compare" />
 
 Compare PNG images in pure Ruby (uses [ChunkyPNG](https://github.com/wvanbergen/chunky_png)) using different algorithms.
-This is an utility library for image regression testing.
+This is a utility library for image regression testing.
 
 ## Installation
 
@@ -53,28 +53,6 @@ Resulting diff contains version of the first image with different pixels highlig
 
 <img alt="color_diff" src="spec/fixtures/color_diff.png" />
 
-### RGB mode (a.png X b.png)
-
-Compare pixels by values, resulting score is a ratio of unequal pixels.
-Resulting diff represents per-channel difference.
-
-<img alt="rgb_diff.png" src="spec/fixtures/rgb_diff.png" />
-
-### Grayscale mode (a.png X a1.png)
-
-Compare pixels as grayscale (by brightness and alpha), resulting score is a ratio of unequal pixels (with respect to provided tolerance).
-
-Resulting diff contains grayscale version of the first image with different pixels highlighted in red and red bounding box.
-
-<img alt="grayscale_diff.png" src="spec/fixtures/grayscale_diff.png" />
-
-### Delta (a.png X a1.png)
-
-Compare pixels using [Delta E](https://en.wikipedia.org/wiki/Color_difference) distance.
-Resulting diff contains grayscale version of the first image with different pixels highlighted in red (with respect to diff score).
-
-<img alt="delta_diff.png" src="spec/fixtures/delta_diff.png" />
-
 ## Usage
 
 ```ruby
@@ -122,16 +100,16 @@ res.score #=> 0.0
 
 ## Excluding rectangle (a.png X a1.png)
 
-<img alt="a1.png" src="spec/fixtures/rgb_exclude_rect.png" />
+<img alt="a1.png" src="spec/fixtures/multiple_exclude_rects.png" />
 
-You can exclude rectangle from comparing by passing `:exclude_rect` to `compare`.
+You can exclude rectangle from comparing by passing `:exclude_rects` to `compare`.
 E.g., if `path_1` and `path_2` contain images above
 ```ruby
-ImageCompare.compare("path/image1.png", "path/image2.png", mode: :rgb, exclude_rect: [200, 150, 275, 200]).match? # => true
+ImageCompare.compare("path/image1.png", "path/image2.png", mode: :rgb, exclude_rects: [[170, 221, 188, 246], [289, 221, 307, 246]]).match? # => true
 
 # or
 
-cmp = ImageCompare::Matcher.new mode: :rgb, exclude_rect: [200, 150, 275, 200]
+cmp = ImageCompare::Matcher.new mode: :rgb, exclude_rect: [[170, 221, 188, 246], [289, 221, 307, 246]]
 res = cmp.compare("path/image1.png", "path/image2.png")
 res #=> ImageCompare::Result
 res.match? #=> true
@@ -141,7 +119,9 @@ res.score #=> 0.0
 res.difference_image #=> ImageCompare::Image
 res.difference_image.save("path/diff.png")
 ```
-`[200, 150, 275, 200]` is array of two vertices of rectangle -- (200, 150) is left-top vertex and (275, 200) is right-bottom.
+`[[170, 221, 188, 246],[289, 221, 307, 246]]` is a set of multiple areas, containing area not to be considered in comparison, each area is an array of two vertices of rectangle -- (170, 121) is left-top vertex and (288, 246) is right-bottom.
+
+
 
 ### Cucumber + Capybara example
 `support/env.rb`:

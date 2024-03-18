@@ -15,14 +15,20 @@ module ImageCompare
       end
     end
 
-    def compare_each_pixel(image, area: nil)
+    def find_different_pixel(image, area: nil, order: :top_to_bottom)
       area = bounding_rect if area.nil?
-      (area.top..area.bot).each do |y|
-        current_row = row(y) || []
-        range = (area.left..area.right)
-        next if image.row(y).slice(range) == current_row.slice(range)
-        (area.left..area.right).each do |x|
-          yield(self[x, y], image[x, y], x, y)
+
+      rows = (area.top..area.bot).to_a
+      rows.reverse! if order == :bottom_to_top
+
+      cols = (area.left..area.right).to_a
+
+      rows.each do |y|
+        cols.each do |x|
+          pixel_self = self[x, y]
+          pixel_image = image[x, y]
+          next if pixel_self == pixel_image
+          yield(pixel_self, pixel_image, x, y)
         end
       end
     end

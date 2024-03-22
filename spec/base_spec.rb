@@ -124,5 +124,20 @@ describe ImageCompare::Matcher do
         expect(result.send(:score)).to be > 0 and be < 1
       end
     end
+
+    context "with vertically " do
+      let(:path_1) { image_path "1" }
+      let(:path_2) { image_path "2" }
+
+      it "compares two images and returns a Result object" do
+        result = ImageCompare.compare(path_1, path_2)
+        result.difference_image.save("abra.png")
+
+        expect(result).to be_a ImageCompare::Result
+        expect(result.send(:score)).to be > 0 and be < 1
+      end
+    end
+
+
   end
 end

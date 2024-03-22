@@ -15,10 +15,11 @@ module ImageCompare
         @lower_threshold = lower_threshold
         @result = Result.new(self, threshold: threshold, lower_threshold: lower_threshold)
         @different_areas = Set.new
+        @sessions = []
       end
 
       def create_sections(session = [])
-        @sections.append(session)
+        @sessions.append(session)
       end
 
       def compare(a, b)
@@ -37,11 +38,34 @@ module ImageCompare
           end
         end
 
-        b.find_different_pixel(a, area: @comparison_area) do |b_pixel, a_pixel, x, y|
-          next if excluded_points[x][y]
-          next if pixels_equal?(b_pixel, a_pixel)
-
-          update_result(b_pixel, a_pixel, x, y)
+        y_reference = 0
+        a_height = a.height
+        moment = true
+        y_equal_reference = 0
+        y_different_reference = 0
+        while y_reference <= a_height
+          if moment
+            b.find_different_row(a, area: @comparison_area) do |y_a|
+              next if y_a < y_reference
+              cropped_image = a.crop(0, y_reference, a.width, y_a + y_reference)
+              @sessions << cropped_image
+              y_equal_reference = y_a
+              y_reference = y_a
+              @comparison_area = Rectangle.new(@comparison_area.left, y_reference, @comparison_area.right, @comparison_area.bot)
+              break
+            end
+            moment = false
+          else
+            b.find_equal_row(a, area: @comparison_area) do |y, y_a|
+              cropped_image = a.crop(0, y_reference, a.width, y - y_reference)
+              @sessions << cropped_image
+              @comparison_area = Rectangle.new(@comparison_area.left, y_reference, @comparison_area.right, @comparison_area.bot)
+              y_reference = y
+              y_different_reference = y
+              break
+            end
+            moment = true
+          end
         end
 
         result.score = score
